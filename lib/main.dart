@@ -20,7 +20,33 @@ class TransferForm extends StatelessWidget {
         appBar: AppBar(
           title: Text('Ordering Tranfer'),
         ),
-        body: Text('dfdfdfds'));
+        body: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                style: TextStyle(fontSize: 24.0),
+                decoration: InputDecoration(
+                    labelText: 'Account number', hintText: '0000'),
+                keyboardType: TextInputType.number,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                style: TextStyle(fontSize: 24.0),
+                decoration: InputDecoration(
+                    icon: Icon(Icons.monetization_on),
+                    labelText: 'Value',
+                    hintText: '0.00'),
+                keyboardType: TextInputType.number,
+              ),
+            ),
+            RaisedButton(
+               child: Text('Confirmar'),
+            ),
+          ],
+        ));
   }
 }
 
