@@ -3,7 +3,12 @@ import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/screens/contacts_form.dart';
 import 'package:flutter/material.dart';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends StatefulWidget {
+  @override
+  _ContactsListState createState() => _ContactsListState();
+}
+
+class _ContactsListState extends State<ContactsList> {
   final List<Contact> contacts = List();
 
   @override
@@ -54,7 +59,9 @@ class ContactsList extends StatelessWidget {
                 ),
               )
               .then(
-                (newContact) => debugPrint(newContact.toString()),
+                (newContact) => setState(() {
+                  widget.createState();
+                }),
               );
         },
         child: Icon(
