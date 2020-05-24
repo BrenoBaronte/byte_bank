@@ -1,9 +1,10 @@
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'http/webclient.dart';
 
 void main() {
   runApp(ByteBankApp());
-//  save(Contact(0, 'b', 1000));
+  findAll().then((value) => print('neeeew $value'));
 }
 
 class ByteBankApp extends StatelessWidget {
