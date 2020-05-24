@@ -6,9 +6,8 @@ import 'package:http/http.dart';
 
 class TransactionWebClient {
   Future<List<Transaction>> findAll() async {
-    final Response response = await client
-        .get(baseUrl)
-        .timeout(Duration(seconds: 5));
+    final Response response =
+        await client.get(baseUrl).timeout(Duration(seconds: 5));
     List<Transaction> transactions = _toTransactions(response);
     return transactions;
   }
@@ -16,12 +15,18 @@ class TransactionWebClient {
   Future<Transaction> save(Transaction transaction, String password) async {
     final String transactionJson = jsonEncode(transaction.toJson());
 
-    final Response response = await client.post(baseUrl, headers: {
-      'Content-type': 'application/json',
-      'password': password,
-    }, body: transactionJson);
+    final Response response = await client.post(baseUrl,
+        headers: {
+          'Content-type': 'application/json',
+          'password': password,
+        },
+        body: transactionJson);
 
-    return _toTransaction(response);
+    if (response.statusCode == 200) {
+      return Transaction.fromJson(jsonDecode(response.body));
+    }
+
+    _throwHttpError(response.statusCode);
   }
 
   List<Transaction> _toTransactions(Response response) {
@@ -33,8 +38,11 @@ class TransactionWebClient {
     return transactions;
   }
 
-  Transaction _toTransaction(Response response) {
-    Map<String, dynamic> json = jsonDecode(response.body);
-    return Transaction.fromJson(json);
-  }
+  void _throwHttpError(int statusCode) =>
+      throw Exception(_statusCodeResponses[statusCode]);
+
+  static final Map<int, String> _statusCodeResponses = {
+    400: 'there was an error submitting transactions',
+    401: 'authentication failed'
+  };
 }
