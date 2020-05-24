@@ -17,6 +17,6 @@ class Progress extends StatelessWidget {
           Text(message),
         ],
       ),
-    );;
+    );
   }
 }
