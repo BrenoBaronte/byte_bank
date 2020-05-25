@@ -9,35 +9,44 @@ class Dashboard extends StatelessWidget {
       appBar: AppBar(
         title: Text('Dashboard'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image(
-              image: AssetImage('images/bytebank_logo.png'),
+      body: LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight,
             ),
-          ),
-          Container(
-            height: 120,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                FeatureItem(
-                  'Transfer',
-                  Icons.monetization_on,
-                  onClick: () => _showContactsList(context),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image(
+                    image: AssetImage('images/bytebank_logo.png'),
+                  ),
                 ),
-                FeatureItem(
-                  'Transaction Feed',
-                  Icons.description,
-                  onClick: () => _showTransactionsList(context),
+                Container(
+                  height: 120,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: <Widget>[
+                      FeatureItem(
+                        'Transfer',
+                        Icons.monetization_on,
+                        onClick: () => _showContactsList(context),
+                      ),
+                      FeatureItem(
+                        'Transaction Feed',
+                        Icons.description,
+                        onClick: () => _showTransactionsList(context),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

@@ -9,10 +9,26 @@ void main() {
     final mainImage = find.byType(Image);
     expect(mainImage, findsOneWidget);
   });
-  testWidgets('Should display the first feature when dashboard is opened',
+  testWidgets('Should display the transfer feature when dashboard is opened',
       (tester) async {
     await tester.pumpWidget(MaterialApp(home: Dashboard()));
-    final features = find.byType(FeatureItem);
-    expect(features, findsNWidgets(2));
+    final transferFeatureItem = find.byWidgetPredicate((widget) =>
+        featureItemMatcher(widget, 'Transfer', Icons.monetization_on));
+    expect(transferFeatureItem, findsOneWidget);
   });
+  testWidgets(
+      'Should display the transaction feed feature when dashboard is opened',
+      (tester) async {
+    await tester.pumpWidget(MaterialApp(home: Dashboard()));
+    final transactionFeedFeatureItem = find.byWidgetPredicate((widget) =>
+        featureItemMatcher(widget, 'Transaction Feed', Icons.description));
+    expect(transactionFeedFeatureItem, findsOneWidget);
+  });
+}
+
+bool featureItemMatcher(Widget widget, String name, IconData icon) {
+  if (widget is FeatureItem) {
+    return widget.name == name && widget.icon == icon;
+  }
+  return false;
 }
