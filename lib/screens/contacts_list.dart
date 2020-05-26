@@ -45,7 +45,7 @@ class _ContactsListState extends State<ContactsList> {
                     itemCount: contacts.length,
                     itemBuilder: (context, index) {
                       final Contact contact = contacts[index];
-                      return _ContactItem(contact, onClick: () {
+                      return ContactItem(contact, onClick: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => TransactionForm(contact),
@@ -81,11 +81,11 @@ class _ContactsListState extends State<ContactsList> {
   }
 }
 
-class _ContactItem extends StatelessWidget {
+class ContactItem extends StatelessWidget {
   final Contact contact;
   final Function onClick;
 
-  _ContactItem(
+  ContactItem(
     this.contact, {
     @required this.onClick,
   });
