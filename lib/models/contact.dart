@@ -20,7 +20,18 @@ class Contact {
         accountNumber = json['accountNumber'];
 
   Map<String, dynamic> toJson() => {
-    'name': name,
-    'accountNumber': accountNumber,
-  };
+        'name': name,
+        'accountNumber': accountNumber,
+      };
+
+  @override
+  bool operator ==(other) =>
+      identical(this, other) ||
+      other is Contact &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          accountNumber == other.accountNumber;
+
+  @override
+  int get hashCode => name.hashCode ^ accountNumber.hashCode;
 }
